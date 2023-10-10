@@ -38,13 +38,13 @@
 
 const taskListContainer = document.querySelector('.app__section-task-list')
 
-let tarefas = [
+let tasks = [
     {
-        descricao: 'Tarefa Concluída',
+        description: 'Task Concluded',
         concluida: true
     },
     {
-        descricao: 'Tarefa Pendente',
+        description: 'Task Pending',
         concluida: false
     }
 ]
@@ -58,7 +58,7 @@ const taskIconSvg = `
         fill="#01080E" />
 </svg>
 `
-function createTask(tarefa) {
+function createTask(task) {
     const li = document.createElement('li')
     li.classList.add('app__section-task-list-item')
 
@@ -68,7 +68,7 @@ function createTask(tarefa) {
     const paragraph = document.createElement('p')
     paragraph.classList.add('app__section-task-list-item-description')
 
-    paragraph.textContent = tarefa.descricao
+    paragraph.textContent = task.description
 
     li.appendChild(svgIcon)
     li.appendChild(paragraph)
@@ -76,7 +76,7 @@ function createTask(tarefa) {
     return li
 }
 
-tarefas.forEach(task => {
+tasks.forEach(task => {
     const taskItem = createTask(task)
     taskListContainer.appendChild(taskItem)
 })
