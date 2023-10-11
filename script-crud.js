@@ -8,6 +8,7 @@ const cancelFormtaskBtn = document.querySelector(
 );
 const btnCancel = document.querySelector(".app__form-footer__button--cancel");
 
+// empty list because it needs to be filled
 let tasks = [];
 
 const taskIconSvg = `
@@ -19,6 +20,8 @@ const taskIconSvg = `
         fill="#01080E" />
 </svg>
 `;
+
+// function to creat the task and creat the li item:
 function createTask(task) {
   const li = document.createElement("li");
   li.classList.add("app__section-task-list-item");
@@ -37,6 +40,7 @@ function createTask(task) {
   return li;
 }
 
+// function to show the date on the screen:
 tasks.forEach((task) => {
   const taskItem = createTask(task);
   taskListContainer.appendChild(taskItem);
@@ -47,6 +51,7 @@ toggleFormTaskBtn.addEventListener("click", () => {
   formTask.classList.toggle("hidden");
 });
 
+// function to change and save the task         
 formTask.addEventListener("submit", (event) => {
   event.preventDefault();
   const task = {
@@ -58,6 +63,7 @@ formTask.addEventListener("submit", (event) => {
   taskListContainer.appendChild(taskItem);
 });
 
+// function to cancel the task
 cancelFormtaskBtn.addEventListener("click", () => {
   formTask.classList.add("hidden");
 });
