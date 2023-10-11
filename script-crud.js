@@ -6,7 +6,6 @@ const textarea = document.querySelector(".app__form-textarea");
 const cancelFormtaskBtn = document.querySelector(
   ".app__form-footer__button--cancel"
 );
-const btnCancel = document.querySelector(".app__form-footer__button--cancel");
 
 // empty list because it needs to be filled
 let tasks = [];
