@@ -7,6 +7,12 @@ const cancelFormtaskBtn = document.querySelector(
   ".app__form-footer__button--cancel"
 );
 
+// function to clear the form:
+const cleanForm = () => {
+  textarea.value = "";
+  formTask.classList.add("hidden");
+};
+
 // empty list because it needs to be filled
 let tasks = [];
 
@@ -45,12 +51,13 @@ tasks.forEach((task) => {
   taskListContainer.appendChild(taskItem);
 });
 
+// function to make the button work:
 toggleFormTaskBtn.addEventListener("click", () => {
   formLabel.textContent = "Adicionando Tarefa";
   formTask.classList.toggle("hidden");
 });
 
-// function to change and save the task         
+// function to change and save the task:
 formTask.addEventListener("submit", (event) => {
   event.preventDefault();
   const task = {
@@ -60,9 +67,13 @@ formTask.addEventListener("submit", (event) => {
   tasks.push(task);
   const taskItem = createTask(task);
   taskListContainer.appendChild(taskItem);
+  cleanForm();
 });
 
 // function to cancel the task
 cancelFormtaskBtn.addEventListener("click", () => {
   formTask.classList.add("hidden");
 });
+
+// to clear the form when canceled
+cancelFormtaskBtn.addEventListener("click", cleanForm); 
