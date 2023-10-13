@@ -77,3 +77,6 @@ cancelFormtaskBtn.addEventListener("click", () => {
 
 // to clear the form when canceled
 cancelFormtaskBtn.addEventListener("click", cleanForm); 
+
+localStorage.setItem("quantity", 11)
+console.log(localStorage.getItem('quantity'));
