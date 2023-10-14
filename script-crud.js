@@ -13,8 +13,11 @@ const cleanForm = () => {
   formTask.classList.add("hidden");
 };
 
-// empty list because it needs to be filled
-let tasks = [];
+// function to get the itens from the "tasks" and save at the localStorage:
+const localStorageTasks = localStorage.getItem("tasks");
+
+// json to take the string and turn into javascript
+let tasks = localStorageTasks ? JSON.parse(localStorageTasks) : [];
 
 const taskIconSvg = `
 <svg class="app__section-task-icon-status" width="24" height="24" viewBox="0 0 24 24"
@@ -57,6 +60,11 @@ toggleFormTaskBtn.addEventListener("click", () => {
   formTask.classList.toggle("hidden");
 });
 
+// function to update the localStorage:
+const updateLocalStorage = () => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
 // function to change and save the task:
 formTask.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -67,6 +75,7 @@ formTask.addEventListener("submit", (event) => {
   tasks.push(task);
   const taskItem = createTask(task);
   taskListContainer.appendChild(taskItem);
+  updateLocalStorage();
   cleanForm();
 });
 
@@ -76,7 +85,4 @@ cancelFormtaskBtn.addEventListener("click", () => {
 });
 
 // to clear the form when canceled
-cancelFormtaskBtn.addEventListener("click", cleanForm); 
-
-localStorage.setItem("quantity", 11)
-console.log(localStorage.getItem('quantity'));
+cancelFormtaskBtn.addEventListener("click", cleanForm);
