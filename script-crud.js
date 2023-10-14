@@ -6,7 +6,9 @@ const textarea = document.querySelector(".app__form-textarea");
 const cancelFormtaskBtn = document.querySelector(
   ".app__form-footer__button--cancel"
 );
-
+const taskAtiveDescription = document.querySelector(
+  ".app__section-active-task-description"
+);
 // function to clear the form:
 const cleanForm = () => {
   textarea.value = "";
@@ -29,6 +31,30 @@ const taskIconSvg = `
 </svg>
 `;
 
+// function to select task:
+let taskSelected = null;
+let itemTaskSelected = null;
+
+const selectTask = (task, element) => {
+  document
+    .querySelectorAll(".app__section-task-list-item-active")
+    .forEach(function (button) {
+      button.classList.remove("app__section-task-list-item-active");
+    });
+
+  if (taskSelected == task) {
+    taskAtiveDescription.textContent = null;
+    itemTaskSelected = null;
+    taskSelected = null;
+    return;
+  }
+
+  taskSelected = task;
+  itemTaskSelected = element;
+  taskAtiveDescription.textContent = task.description;
+  element.classList.add("app__section-task-list-item-active");
+};
+
 // function to creat the task and creat the li item:
 function createTask(task) {
   const li = document.createElement("li");
@@ -41,6 +67,9 @@ function createTask(task) {
   paragraph.classList.add("app__section-task-list-item-description");
 
   paragraph.textContent = task.description;
+  li.onclick = () => {
+    selectTask(task, li);
+  };
 
   li.appendChild(svgIcon);
   li.appendChild(paragraph);
