@@ -67,6 +67,20 @@ function createTask(task) {
   paragraph.classList.add("app__section-task-list-item-description");
 
   paragraph.textContent = task.description;
+
+  const button = document.createElement("button");
+
+  svgIcon.addEventListener("click", (event) => {
+    event.stopPropagation();
+    button.setAttribute("disabled", true);
+    li.classList.add("app__section-task-list-item-complete");
+  });
+
+  if (task.concluded) {
+    button.setAttribute("disabled", true);
+    li.classList.add("app__section-task-list-item-complete");
+  }
+
   li.onclick = () => {
     selectTask(task, li);
   };
