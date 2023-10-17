@@ -10,7 +10,6 @@ const taskAtiveDescription = document.querySelector(
   ".app__section-active-task-description"
 );
 
-
 // function to get the itens from the "tasks" and save at the localStorage:
 const localStorageTasks = localStorage.getItem("tasks");
 
@@ -61,9 +60,14 @@ const cleanForm = () => {
   formTask.classList.add("hidden");
 };
 
+// function to edit the task:
 const selectTaskToEdit = () => {
+  // button.classList.add("app_button-edit");
+  // const editIcon = document.createElement("img");
+  // editIcon.setAttribute("src", "/imagens/edit.png");
 
-}
+  // button.appendChild(editIcon);
+};
 
 // function to creat the task and creat the li item:
 function createTask(task) {
@@ -80,7 +84,7 @@ function createTask(task) {
 
   const button = document.createElement("button");
 
-  button.classList.add('app_button-edit')
+  button.classList.add("app_button-edit");
 
   svgIcon.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -100,7 +104,7 @@ function createTask(task) {
   // to show the button
   li.appendChild(svgIcon);
   li.appendChild(paragraph);
-  li.appendChild(button)
+  li.appendChild(button);
 
   return li;
 }
