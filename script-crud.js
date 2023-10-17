@@ -9,11 +9,7 @@ const cancelFormtaskBtn = document.querySelector(
 const taskAtiveDescription = document.querySelector(
   ".app__section-active-task-description"
 );
-// function to clear the form:
-const cleanForm = () => {
-  textarea.value = "";
-  formTask.classList.add("hidden");
-};
+
 
 // function to get the itens from the "tasks" and save at the localStorage:
 const localStorageTasks = localStorage.getItem("tasks");
@@ -31,9 +27,13 @@ const taskIconSvg = `
 </svg>
 `;
 
+// we start with the variables(let)
 // function to select task:
 let taskSelected = null;
 let itemTaskSelected = null;
+// function to edit the task
+let taskEdition = null;
+let paragraphEdition = null;
 
 const selectTask = (task, element) => {
   document
@@ -55,6 +55,16 @@ const selectTask = (task, element) => {
   element.classList.add("app__section-task-list-item-active");
 };
 
+// function to clear the form:
+const cleanForm = () => {
+  textarea.value = "";
+  formTask.classList.add("hidden");
+};
+
+const selectTaskToEdit = () => {
+
+}
+
 // function to creat the task and creat the li item:
 function createTask(task) {
   const li = document.createElement("li");
@@ -69,6 +79,8 @@ function createTask(task) {
   paragraph.textContent = task.description;
 
   const button = document.createElement("button");
+
+  button.classList.add('app_button-edit')
 
   svgIcon.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -85,8 +97,10 @@ function createTask(task) {
     selectTask(task, li);
   };
 
+  // to show the button
   li.appendChild(svgIcon);
   li.appendChild(paragraph);
+  li.appendChild(button)
 
   return li;
 }
