@@ -61,12 +61,17 @@ const cleanForm = () => {
 };
 
 // function to edit the task:
-const selectTaskToEdit = () => {
-  // button.classList.add("app_button-edit");
-  // const editIcon = document.createElement("img");
-  // editIcon.setAttribute("src", "/imagens/edit.png");
+const selectTaskToEdit = (task, element) => {
+  if (taskEdition == task) {
+    cleanForm();
+    return;
+  }
 
-  // button.appendChild(editIcon);
+  formLabel.textContent = "Editando tarefa";
+  taskEdition = task;
+  paragraphEdition = element;
+  textarea.value = task.description;
+  formTask.classList.remove("hidden");
 };
 
 // function to creat the task and creat the li item:
@@ -85,6 +90,10 @@ function createTask(task) {
   const button = document.createElement("button");
 
   button.classList.add("app_button-edit");
+  const editIcon = document.createElement("img");
+  editIcon.setAttribute("src", "/imagens/edit.png");
+
+  button.appendChild(editIcon);
 
   svgIcon.addEventListener("click", (event) => {
     event.stopPropagation();
