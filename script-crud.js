@@ -56,6 +56,8 @@ const selectTask = (task, element) => {
 
 // function to clear the form:
 const cleanForm = () => {
+  taskEdition = null;
+  paragraphEdition = null;
   textarea.value = "";
   formTask.classList.add("hidden");
 };
