@@ -97,6 +97,11 @@ function createTask(task) {
 
   button.appendChild(editIcon);
 
+  button.addEventListener("click", (event) => {
+    event.stopPropagation()
+    selectTaskToEdit(task, paragraph)
+  })
+
   svgIcon.addEventListener("click", (event) => {
     event.stopPropagation();
     button.setAttribute("disabled", true);
@@ -140,6 +145,11 @@ const updateLocalStorage = () => {
 // function to change and save the task:
 formTask.addEventListener("submit", (event) => {
   event.preventDefault();
+  // edition recieve a textarea with the text
+  if(taskEdition) {
+    taskEdition.description = textarea.value
+    paragraphEdition.textContent = textarea.value
+  } else {
   const task = {
     description: textarea.value,
     concluded: false,
@@ -147,6 +157,7 @@ formTask.addEventListener("submit", (event) => {
   tasks.push(task);
   const taskItem = createTask(task);
   taskListContainer.appendChild(taskItem);
+}
   updateLocalStorage();
   cleanForm();
 });
