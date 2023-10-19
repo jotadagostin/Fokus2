@@ -35,6 +35,10 @@ let taskEdition = null;
 let paragraphEdition = null;
 
 const selectTask = (task, element) => {
+  if(task.concluded) {
+    return
+  }
+
   document
     .querySelectorAll(".app__section-task-list-item-active")
     .forEach(function (button) {
@@ -98,14 +102,19 @@ function createTask(task) {
   button.appendChild(editIcon);
 
   button.addEventListener("click", (event) => {
-    event.stopPropagation()
-    selectTaskToEdit(task, paragraph)
-  })
+    event.stopPropagation();
+    selectTaskToEdit(task, paragraph);
+  });
 
   svgIcon.addEventListener("click", (event) => {
-    event.stopPropagation();
-    button.setAttribute("disabled", true);
-    li.classList.add("app__section-task-list-item-complete");
+    if(task==taskSelected) {
+      event.stopPropagation();
+      button.setAttribute("disabled", true);
+      li.classList.add("app__section-task-list-item-complete");
+      taskSelected.concluded = true
+      updateLocalStorage()
+    }
+   
   });
 
   if (task.concluded) {
@@ -146,18 +155,18 @@ const updateLocalStorage = () => {
 formTask.addEventListener("submit", (event) => {
   event.preventDefault();
   // edition recieve a textarea with the text
-  if(taskEdition) {
-    taskEdition.description = textarea.value
-    paragraphEdition.textContent = textarea.value
+  if (taskEdition) {
+    taskEdition.description = textarea.value;
+    paragraphEdition.textContent = textarea.value;
   } else {
-  const task = {
-    description: textarea.value,
-    concluded: false,
-  };
-  tasks.push(task);
-  const taskItem = createTask(task);
-  taskListContainer.appendChild(taskItem);
-}
+    const task = {
+      description: textarea.value,
+      concluded: false,
+    };
+    tasks.push(task);
+    const taskItem = createTask(task);
+    taskListContainer.appendChild(taskItem);
+  }
   updateLocalStorage();
   cleanForm();
 });
@@ -169,3 +178,14 @@ cancelFormtaskBtn.addEventListener("click", () => {
 
 // to clear the form when canceled
 cancelFormtaskBtn.addEventListener("click", cleanForm);
+
+// function to finish the task:
+
+document.addEventListener("TarefaFinalizada", function (e) {
+  if (taskSelected) {
+    taskSelected.concluded = true;
+    itemTaskSelected.classList.add("app__section-task-list-item-complete");
+    itemTaskSelected.querySelector("button").setAttribute("disabled", true);
+    updateLocalStorage();
+  }
+});
