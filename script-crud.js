@@ -10,6 +10,9 @@ const taskAtiveDescription = document.querySelector(
   ".app__section-active-task-description"
 );
 
+// function to cancel/delete the task:
+const btnDelete = document.querySelector(".app__form-footer__button--delete");
+
 // function to get the itens from the "tasks" and save at the localStorage:
 const localStorageTasks = localStorage.getItem("tasks");
 
@@ -35,8 +38,8 @@ let taskEdition = null;
 let paragraphEdition = null;
 
 const selectTask = (task, element) => {
-  if(task.concluded) {
-    return
+  if (task.concluded) {
+    return;
   }
 
   document
@@ -107,14 +110,13 @@ function createTask(task) {
   });
 
   svgIcon.addEventListener("click", (event) => {
-    if(task==taskSelected) {
+    if (task == taskSelected) {
       event.stopPropagation();
       button.setAttribute("disabled", true);
       li.classList.add("app__section-task-list-item-complete");
-      taskSelected.concluded = true
-      updateLocalStorage()
+      taskSelected.concluded = true;
+      updateLocalStorage();
     }
-   
   });
 
   if (task.concluded) {
@@ -178,6 +180,24 @@ cancelFormtaskBtn.addEventListener("click", () => {
 
 // to clear the form when canceled
 cancelFormtaskBtn.addEventListener("click", cleanForm);
+
+// function to cancel/delete the task:
+btnDelete.addEventListener("click", () => {
+  if (taskSelected) {
+    const index = tasks.indexOf(taskSelected);
+
+    if (index !== -1) {
+      tasks.splice(index, 1);
+    }
+
+    itemTaskSelected.remove();
+    tasks.filter((t) => t != taskSelected);
+    itemTaskSelected = null;
+    taskSelected = null;
+  }
+  updateLocalStorage();
+  cleanForm();
+});
 
 // function to finish the task:
 
