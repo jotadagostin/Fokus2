@@ -10,8 +10,14 @@ const taskAtiveDescription = document.querySelector(
   ".app__section-active-task-description"
 );
 
+// function to cancel the task:
+const btnCancel = document.querySelector(".app__form-footer__button--cancel");
 // function to cancel/delete the task:
 const btnDelete = document.querySelector(".app__form-footer__button--delete");
+// function to delete the concluded tasks:
+const btnDeleteConcluded = document.querySelector("#btn-remover-concluidas");
+// function to delete everything:
+const btnDeleteAll = document.querySelector("#btn-remover-todas");
 
 // function to get the itens from the "tasks" and save at the localStorage:
 const localStorageTasks = localStorage.getItem("tasks");
@@ -36,6 +42,15 @@ let itemTaskSelected = null;
 // function to edit the task
 let taskEdition = null;
 let paragraphEdition = null;
+
+const removeTask = (onlyConcluded) => {
+  const selector = onlyConcluded
+    ? ".app__section-task-list-item-complete"
+    : ".app__section-task-list-item";
+  document.querySelector(selector).forEach((element) => {
+    element.remove();
+  });
+};
 
 const selectTask = (task, element) => {
   if (task.concluded) {
@@ -142,6 +157,12 @@ tasks.forEach((task) => {
   taskListContainer.appendChild(taskItem);
 });
 
+cancelFormtaskBtn.addEventListener("click", () => {
+  formTask.classList.add("hidden");
+});
+
+btnCancel.addEventListener("click", cleanForm);
+
 // function to make the button work:
 toggleFormTaskBtn.addEventListener("click", () => {
   formLabel.textContent = "Adicionando Tarefa";
@@ -209,3 +230,6 @@ document.addEventListener("TarefaFinalizada", function (e) {
     updateLocalStorage();
   }
 });
+
+btnDeleteConcluded.addEventListener("click", () => removeTask(true));
+btnDeleteAll.addEventListener("click", () => removeTask(false));
