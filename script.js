@@ -57,18 +57,18 @@ function alterarContexto(contexto) {
     switch (contexto) {
         case "foco":
             titulo.innerHTML = `
-            Otimize sua produtividade,<br>
-                <strong class="app__title-strong">mergulhe no que importa.</strong>
+            Optimize your productivity,<br>
+                <strong class="app__title-strong">dive yourself in what matters.</strong>
             `
             break;
         case "descanso-curto":
             titulo.innerHTML = `
-            Que tal dar uma respirada? <strong class="app__title-strong">Faça uma pausa curta!</strong>
+            How about taking a breather? <strong class="app__title-strong">Take a short break!</strong>
             ` 
             break;
         case "descanso-longo":
             titulo.innerHTML = `
-            Hora de voltar à superfície.<strong class="app__title-strong"> Faça uma pausa longa.</strong>
+            Time to return to the surface.<strong class="app__title-strong"> Take a long break.</strong>
             `
         default:
             break;
@@ -82,7 +82,7 @@ const contagemRegressiva = () => {
         if (focoAtivo) {            
             var event = new CustomEvent("TarefaFinalizada", {
                 detail: {
-                    message: "A tarefa foi concluída com sucesso!",
+                    message: "The task was completed successfully!",
                     time: new Date(),
                 },
                 bubbles: true,
@@ -109,13 +109,13 @@ function iniciarOuPausar() {
     }
     audioPlay.play()
     intervaloId = setInterval(contagemRegressiva, 1000)
-    iniciarOuPausarBt.textContent = "Pausar"
+    iniciarOuPausarBt.textContent = "Pause"
     iniciarOuPausarBtIcone.setAttribute('src', `/imagens/pause.png`)
 }
 
 function zerar() {
     clearInterval(intervaloId) 
-    iniciarOuPausarBt.textContent = "Começar"
+    iniciarOuPausarBt.textContent = "Start"
     iniciarOuPausarBtIcone.setAttribute('src', `/imagens/play_arrow.png`)
     intervaloId = null
 }

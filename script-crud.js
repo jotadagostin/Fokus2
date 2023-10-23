@@ -178,7 +178,7 @@ btnCancelar.addEventListener("click", limparForm);
 // function to make the button work:
 
 toggleFormTaskBtn.addEventListener("click", () => {
-  formLabel.textContent = "Adicionando tarefa";
+  formLabel.textContent = "Adding task";
   formTask.classList.toggle("hidden");
 });
 
